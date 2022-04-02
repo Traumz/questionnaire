@@ -74,6 +74,7 @@ class Questionnaire:
         return score
 
 
+
 # Charger json
 filename = "bandedessinnee_tintin_confirme.json"
 file = open(filename, "r")
@@ -85,5 +86,4 @@ questionnaire_data = json.loads(json_data)
 Questionnaire.from_json_data(questionnaire_data).lancer()
 
 
-print()
 

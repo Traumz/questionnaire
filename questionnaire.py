@@ -85,5 +85,5 @@ questionnaire_data = json.loads(json_data)
 
 Questionnaire.from_json_data(questionnaire_data).lancer()
 
-
+print()
 

@@ -1,4 +1,4 @@
-
+import sys
 import json
 
 # Test github
@@ -58,6 +58,17 @@ class Questionnaire:
         questions = [Question.from_json_data(i) for i in questionnaire_data_questions]
         return Questionnaire(questions, data["categorie"], data["titre"], data["difficulte"])
 
+    def from_json_file(filename):
+        try:
+            file = open(filename, "r")
+            json_data = file.read()
+            file.close()
+            questionnaire_data = json.loads(json_data)
+            return Questionnaire.from_json_data(questionnaire_data)
+        except:
+            print("Exception lors de l'ouverture du fichier.")
+            return None
+
     def lancer(self):
         score = 0
         nb_questions = len(self.questions)
@@ -76,16 +87,15 @@ class Questionnaire:
         return score
 
 
+# Questionnaire.from_json_file("bandedessinnee_tintin_confirme.json").lancer()
+print(sys.argv)
 
-# Charger json
-filename = "bandedessinnee_tintin_confirme.json"
-file = open(filename, "r")
-json_data = file.read()
-file.close()
+if len(sys.argv) < 2:
+    print("ERREUR, vous devez spécifier le nom du fichier json à charger")
+    exit(0)
 
-questionnaire_data = json.loads(json_data)
+json_filename = sys.argv[1]
+questionnaire = Questionnaire.from_json_file(json_filename)
+if questionnaire:
+    questionnaire.lancer()
 
-Questionnaire.from_json_data(questionnaire_data).lancer()
-
-print()
-print("Fin du questionnaire")
